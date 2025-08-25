@@ -1,6 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import InvalidSessionIdException, NoSuchWindowException
+from selenium.common.exceptions import (
+    InvalidSessionIdException,
+    NoSuchWindowException,
+    WebDriverException,
+)
 from traceback import format_exception_only
 import time
 
@@ -93,7 +97,12 @@ try:
                         break
                     page += 1
                 f.write("</body></html>")
-        except (InvalidSessionIdException, NoSuchWindowException, TypeError):
+        except (
+            InvalidSessionIdException,
+            NoSuchWindowException,
+            WebDriverException,
+            TypeError,
+        ):
             break
 except Exception as e:
     open(f"Error.txt", "w", encoding="utf-8").writelines(format_exception_only(e))
