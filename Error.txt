@@ -1,1 +1,25 @@
-TypeError: argument of type 'NoneType' is not iterable
+selenium.common.exceptions.NoSuchWindowException: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: MicrosoftEdge=139.0.3405.111)
+Stacktrace:
+	GetHandleVerifier [0x0x7ff6be22e755+22117]
+	(No symbol) [0x0x7ff6be17edd0]
+	GetHandleVerifier [0x0x7ff6be4b4bfc+2669324]
+	(No symbol) [0x0x7ff6bdf2d29f]
+	(No symbol) [0x0x7ff6bdfbfbf4]
+	(No symbol) [0x0x7ff6bdfd6f3a]
+	(No symbol) [0x0x7ff6bdfba553]
+	(No symbol) [0x0x7ff6bdf8eb86]
+	(No symbol) [0x0x7ff6bdf8de11]
+	(No symbol) [0x0x7ff6bdf8e9b3]
+	(No symbol) [0x0x7ff6be08907d]
+	(No symbol) [0x0x7ff6be095fe8]
+	GetHandleVerifier [0x0x7ff6be30f247+942423]
+	GetHandleVerifier [0x0x7ff6be3181f1+979201]
+	(No symbol) [0x0x7ff6be18c381]
+	(No symbol) [0x0x7ff6be184d34]
+	(No symbol) [0x0x7ff6be184e83]
+	(No symbol) [0x0x7ff6be176fe6]
+	BaseThreadInitThunk [0x0x7ffbf129e8d7+23]
+	RtlUserThreadStart [0x0x7ffbf28e8d9c+44]
+

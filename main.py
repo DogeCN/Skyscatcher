@@ -30,22 +30,29 @@ try:
                             url += f"/p/{id}?see_lz=1"
                             break
             stamp = time.strftime("%Y%m%d_%H%M%S", time.localtime())
-            with open(f"{stamp}.txt", "w", encoding="utf-8") as f:
-                try:
-                    author = driver.find_element(
-                        By.CLASS_NAME, "p_author_name"
-                    ).text.strip()
-                    f.write(f"Author: {author}\n\n")
-                except:
-                    pass
+            with open(stamp + ".html", "w", encoding="utf-8") as f:
                 total = None
                 page = 1
                 while True:
                     driver.get(url + f"&pn={page}")
                     if not total:
-                        pn_tag = driver.find_element(By.CSS_SELECTOR, "li.l_reply_num")
-                        spans = pn_tag.find_elements(By.TAG_NAME, "span")
-                        total = int(spans[-1].text)
+                        title = driver.title
+                        f.write(
+                            f"<html><head><title>{title}</title></head><body><h1>{title}</h1>"
+                        )
+                        try:
+                            f.write(
+                                f"<h2>Author: {driver.find_element(
+                                By.CLASS_NAME, "p_author_name"
+                            ).text.strip()}</h2>"
+                            )
+                        except:
+                            pass
+                        total = int(
+                            driver.find_element(By.CSS_SELECTOR, "li.l_reply_num")
+                            .find_elements(By.TAG_NAME, "span")[-1]
+                            .text
+                        )
                     post_divs = driver.find_elements(
                         By.CSS_SELECTOR, "div.l_post.l_post_bright.j_l_post.clearfix"
                     )
@@ -54,14 +61,15 @@ try:
                             f.write(
                                 div.find_element(
                                     By.CLASS_NAME, "d_post_content"
-                                ).text.strip()
-                                + "\n\n"
+                                ).get_attribute("outerHTML")
+                                + "<br><br>"
                             )
                         except:
                             continue
                     if page >= total:
                         break
                     page += 1
+                f.write("</body></html>")
         except NoSuchWindowException:
             break
 except Exception as e:
