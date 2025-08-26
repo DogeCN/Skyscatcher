@@ -112,6 +112,7 @@ try:
             WebDriverException,
             TypeError,
         ):
+            driver.quit()
             break
 except Exception as e:
     open(f"Error.txt", "w", encoding="utf-8").writelines(format_exception_only(e))
