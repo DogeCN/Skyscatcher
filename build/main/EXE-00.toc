@@ -3,7 +3,7 @@
  False,
  True,
  ['e:\\Develop\\Python\\Skyscatcher\\img\\icon.ico'],
- versioninfo.VSVersionInfo(ffi=versioninfo.FixedFileInfo(filevers=(0, 1, 0, 0), prodvers=(0, 1, 0, 0), mask=0x3f, flags=0x0, OS=0x40004, fileType=1, subtype=0x0, date=(0, 0)), kids=[versioninfo.StringFileInfo([versioninfo.StringTable('040904B0', [versioninfo.StringStruct('CompanyName', ''), versioninfo.StringStruct('FileDescription', 'Skyscatcher'), versioninfo.StringStruct('FileVersion', '0.1.0.0'), versioninfo.StringStruct('InternalName', 'Skyscatcher'), versioninfo.StringStruct('LegalCopyright', 'Copyright © DogeCN 2025. All rights reserved.'), versioninfo.StringStruct('OriginalFilename', 'Skyscatcher.exe'), versioninfo.StringStruct('ProductName', 'Skyscatcher'), versioninfo.StringStruct('ProductVersion', '0.1.0.0')])]), versioninfo.VarFileInfo([versioninfo.VarStruct('Translation', [0, 1200])])]),
+ versioninfo.VSVersionInfo(ffi=versioninfo.FixedFileInfo(filevers=(0, 1, 1, 0), prodvers=(0, 1, 1, 0), mask=0x3f, flags=0x0, OS=0x40004, fileType=1, subtype=0x0, date=(0, 0)), kids=[versioninfo.StringFileInfo([versioninfo.StringTable('040904B0', [versioninfo.StringStruct('CompanyName', ''), versioninfo.StringStruct('FileDescription', 'Skyscatcher'), versioninfo.StringStruct('FileVersion', '0.1.1.0'), versioninfo.StringStruct('InternalName', 'Skyscatcher'), versioninfo.StringStruct('LegalCopyright', 'Copyright © DogeCN 2025. All rights reserved.'), versioninfo.StringStruct('OriginalFilename', 'Skyscatcher.exe'), versioninfo.StringStruct('ProductName', 'Skyscatcher'), versioninfo.StringStruct('ProductVersion', '0.1.1.0')])]), versioninfo.VarFileInfo([versioninfo.VarStruct('Translation', [0, 1200])])]),
  False,
  False,
  b'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<assembly xmlns='
@@ -68,7 +68,7 @@
  [],
  False,
  False,
- 1756142309,
+ 1756192879,
  [('runw.exe',
    'C:\\Users\\hark2\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
    'EXECUTABLE')],
