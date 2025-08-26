@@ -8,8 +8,6 @@ from selenium.common.exceptions import (
 from traceback import format_exception_only
 import time
 
-blob_js = """var content=`%s`;var filename="%s";var blob=new Blob([content],{type:"text/html"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);"""
-
 try:
     try:
         options = webdriver.ChromeOptions()
@@ -81,7 +79,7 @@ try:
                             By.CLASS_NAME, "d_post_content"
                         )
                         nodes = driver.execute_script(
-                            "return Array.from(arguments[0].childNodes).map(n => ({type: n.nodeType, name: n.nodeName, value: n.nodeValue, src: n.src || ''}));",
+                            "return Array.from(arguments[0].childNodes).map(n=>({type:n.nodeType,name:n.nodeName,value:n.nodeValue,src:n.src||''}));",
                             content_element,
                         )
                         for node in nodes:
@@ -104,11 +102,9 @@ try:
                 page += 1
             cache += "</body></html>"
             driver.execute_script(
-                blob_js
-                % (
-                    cache,
-                    f"{time.strftime('Skyscatcher_%Y%m%d_%H%M%S', time.localtime())}.html",
-                )
+                'var blob=new Blob([arguments[0]],{type:"text/html"});var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=arguments[1];document.body.appendChild(a);a.click();document.body.removeChild(a);',
+                cache,
+                f"{time.strftime('Skyscatcher_%Y%m%d_%H%M%S', time.localtime())}.html",
             )
         except (
             InvalidSessionIdException,
