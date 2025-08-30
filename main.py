@@ -6,13 +6,10 @@ import time
 
 OPT = (
     "prefs",
-    {
-        "download.prompt_for_download": True,
-        "download.directory_upgrade": True,
-    },
+    {"download.prompt_for_download": True, "download.directory_upgrade": True},
 )
 STYLE = "<style>body{margin:0;background:#1e1e1e;color:#c0c0c0;font-family:Arial,sans-serif;font-size:1.6em;line-height:2.1;padding:60px 8%}h1,h2{font-weight:400;margin:2em 0 1em 0;font-size:1.6em}h1{font-size:2.2em;margin-top:1em}p{margin:1.2em 0}.q{width:30px;height:30px}.lz{width:100%;height:auto;border-radius:6px;margin:12px 0}</style>"
-SCRIPT = r"""return arguments[0].innerHTML.replace(/<div[^>]*replace_tip[^>]*>.*?<\/div>/g,'').replace(/<div[^>]*>/g,'').replace(/<\/div>/g,'').replace(/<img[^>]*>/g,m=>{let src=m.match(/src="[^"]*"/);return m.includes('BDE_Smiley')?`<img class="q" ${src?src[0]:''}>`:src?`<img class="lz" ${src[0]}>`:m;}).replace(/<a[^>]*portrait="([^"]*)"[^>]*>([^<]*)<\/a>/g,'<a href="https://tieba.baidu.com/home/main?id=$1">$2</a>').replace(/\s+/g,' ').replace(/> </g,'><')+'<br><br>';"""
+SCRIPT = r"""return '<p>'+arguments[0].innerHTML.replace(/<div[^>]*replace_tip[^>]*>.*?<\/div>/g,'').replace(/<div[^>]*>/g,'').replace(/<\/div>/g,'').replace(/<img[^>]*>/g,m=>{let src=m.match(/src="[^"]*"/);return m.includes('BDE_Smiley')?`<img class="q" ${src?src[0]:''}>`:src?`<img class="lz" ${src[0]}>`:m;}).replace(/<a[^>]*portrait="([^"]*)"[^>]*>([^<]*)<\/a>/g,'<a href="https://tieba.baidu.com/home/main?id=$1">$2</a>').replace(/\s+/g,' ').replace(/> </g,'><')+'</p>';"""
 
 try:
     try:
@@ -62,13 +59,10 @@ try:
                     By.CSS_SELECTOR, "div.l_post.l_post_bright.j_l_post.clearfix"
                 )
                 for div in post_divs:
-                    try:
-                        cache += driver.execute_script(
-                            SCRIPT,
-                            div.find_element(By.CLASS_NAME, "d_post_content"),
-                        )
-                    except:
-                        continue
+                    cache += driver.execute_script(
+                        SCRIPT,
+                        div.find_element(By.CLASS_NAME, "d_post_content"),
+                    )
                 if page >= total:
                     break
                 page += 1
