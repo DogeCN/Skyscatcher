@@ -73,7 +73,7 @@ try:
                 cache,
                 f"{time.strftime('Skyscatcher_%Y%m%d_%H%M%S', time.localtime())}.html",
             )
-        except WebDriverException:
+        except (WebDriverException, TypeError):
             driver.quit()
             break
 except Exception as e:
