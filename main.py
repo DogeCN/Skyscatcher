@@ -41,11 +41,6 @@ try:
                     if len(parts) > 1:
                         id = parts[1].split("?")[0]
                         if id.isdigit():
-                            for c in driver.get_cookies():
-                                if c["name"] == "BDUSS":
-                                    break
-                            else:
-                                continue
                             url += f"/p/{id}?see_lz=1"
                             break
             cache = ""
@@ -57,7 +52,7 @@ try:
                     title = driver.find_element(
                         By.CLASS_NAME, "core_title_txt"
                     ).text.strip()
-                    style = """<style>body{margin:0;background:#1e1e1e;color:#c0c0c0;font-family:"SegoeUI","HelveticaNeue",Arial,"PingFangSC","MicrosoftYaHei",sans-serif;font-size:1.6em;line-height:2.1;padding:60px 8%;min-height:100vh;}h1,h2{text-align:left;font-weight:400;margin:2em 0 1em 0;font-size:1.6em;}h1{font-size:2.2em;margin-top:1em;}p{margin:1.2em 0;text-align:justify;}.lz{max-width:100%;border-radius:6px;box-shadow:0 2px 8px #2222;margin:12px 0;display:block;margin-left:auto;margin-right:auto;}</style>"""
+                    style = """<style>body{margin:0;background:#1e1e1e;color:#c0c0c0;font-family:"SegoeUI","HelveticaNeue",Arial,"PingFangSC","MicrosoftYaHei",sans-serif;font-size:1.6em;line-height:2.1;padding:60px 8%;min-height:100vh;}h1,h2{text-align:left;font-weight:400;margin:2em 0 1em 0;font-size:1.6em;}h1{font-size:2.2em;margin-top:1em;}p{margin:1.2em 0;text-align:justify;}.BDE_Image{width:100%;height:auto;border-radius:6px;box-shadow:0 2px 8px #2222;margin:12px 0;display:block;object-fit:cover;}</style>"""
                     cache += f"<html><head><title>{title}</title>{style}</head><body><h1>{title}</h1>"
                     try:
                         cache += f"<h2>Author: {driver.find_element(
@@ -75,26 +70,10 @@ try:
                 )
                 for div in post_divs:
                     try:
-                        content_element = div.find_element(
-                            By.CLASS_NAME, "d_post_content"
+                        cache += driver.execute_script(
+                            """return arguments[0].innerHTML.replace(/<a[^>]*portrait="([^"]*)"[^>]*>([^<]*)<\/a>/g,'<a href="https://tieba.baidu.com/home/main?id=$1">$2</a>') + "<br><br>";""",
+                            div.find_element(By.CLASS_NAME, "d_post_content"),
                         )
-                        nodes = driver.execute_script(
-                            "return Array.from(arguments[0].childNodes).map(n=>({type:n.nodeType,name:n.nodeName,value:n.nodeValue,src:n.src||''}));",
-                            content_element,
-                        )
-                        for node in nodes:
-                            if node["type"] == 3:
-                                text = node["value"]
-                                if text:
-                                    cache += text
-                            elif node["type"] == 1 and node["name"] == "IMG":
-                                img_url = node["src"]
-                                if img_url:
-                                    cache += '<img src="%s"%s/>' % (
-                                        img_url,
-                                        ('class="lz"' if "forum" in img_url else ""),
-                                    )
-                        cache += "<br><br>"
                     except:
                         continue
                 if page >= total:
