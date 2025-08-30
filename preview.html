@@ -5,26 +5,13 @@
     <title>图片交互效果预览</title>
     <style>
         body {
-            margin: 0;
             background: #1e1e1e;
             color: #c0c0c0;
             font-family: Arial, sans-serif;
             font-size: 1.6em;
-            line-height: 2.1;
-            padding: 60px 8%
+            padding: 60px 10%
         }
 
-        h1,
-        h2 {
-            font-weight: 400;
-            margin: 2em 0 1em 0;
-            font-size: 1.6em
-        }
-
-        h1 {
-            font-size: 2.2em;
-            margin-top: 1em
-        }
 
         p {
             margin: 1.2em 0
@@ -39,14 +26,13 @@
             width: 50%;
             height: auto;
             border-radius: 6px;
-            transition: transform 200ms ease, width 200ms ease;
+            transition: transform 200ms ease;
             transform-origin: center center;
             cursor: pointer
         }
 
         .lz.large {
             width: 100%;
-            margin: 12px auto
         }
 
         .lz:hover {
@@ -54,10 +40,9 @@
         }
 
         .img-container {
-            display: block;
             text-align: center;
             margin: 12px auto;
-            overflow: visible
+            transition: margin 200ms ease
         }
     </style>
     <script>
@@ -65,6 +50,7 @@
 
         function enlarge(img) {
             img.classList.toggle('large');
+            adjustLayout();
         }
 
         function rotate(img, event) {
@@ -72,7 +58,20 @@
             const rotation = parseInt(img.dataset.rotation || '0') + 90;
             img.dataset.rotation = rotation;
             img.style.transform = `rotate(${rotation}deg)`;
-            return false;
+            adjustLayout();
+        }
+
+        function adjustLayout() {
+            const containers = document.querySelectorAll('.img-container');
+            containers.forEach(container => {
+                const img = container.querySelector('.lz');
+                const rotation = parseInt(img.dataset.rotation || '0') % 180;
+                if (rotation !== 0) {
+                    container.style.margin = `${(img.offsetWidth - img.offsetHeight) * 0.5 + 12}px auto`;
+                } else {
+                    container.style.margin = '12px auto';
+                }
+            });
         }
     </script>
 </head>
